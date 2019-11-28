@@ -33,7 +33,7 @@ public class App
 		    MqttMessage message = new MqttMessage();
 	    	message.setPayload(row.getBytes());
 	    	message.setQos(qos);
-	    	client.publish("iot_data7", message);
+	    	client.publish("iot_data", message);
 	    	if ((System.currentTimeMillis() - start) >= 1000) {
 	    		break;
 	    	}
