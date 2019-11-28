@@ -24,7 +24,7 @@ public class App
         client = new MqttClient("tcp://localhost:1883", MqttClient.generateClientId());
     	client.setCallback( new MyCallback() );
     	client.connect();
-		BufferedReader csvReader = new BufferedReader(new FileReader("C:\\Users\\Tonya\\Downloads\\sorted100M.csv"));
+		BufferedReader csvReader = new BufferedReader(new FileReader("/home/tony/Downloads/debs40houses16h/house-0.csv"));
 //		BufferedReader csvReader = new BufferedReader(new FileReader("C:\\Users\\Tonya\\Downloads\\debs40houses16h\\house-0.csv"));
 		String row;
 		long start = System.currentTimeMillis();    
