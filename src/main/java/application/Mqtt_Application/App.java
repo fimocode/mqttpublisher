@@ -1,47 +1,31 @@
 package application.Mqtt_Application;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
 
-import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 
-public class App 
+public class App
 {
-	static MqttClient client;
-	static int qos=0;
-	public static void main( String[] args ) throws MqttException, IOException
-    {
-//    	int n = 4; // Number of threads 
-//        for (int i=0; i<n; i++) 
-//        {
-//            Thread object = new Thread(new Multithreading(i)); 
-//            object.start(); 
-//        }
-        
-        client = new MqttClient("tcp://localhost:1883", MqttClient.generateClientId());
-    	client.setCallback( new MyCallback() );
-    	client.connect();
-		BufferedReader csvReader = new BufferedReader(new FileReader("/home/tony/Downloads/debs40houses16h/house-0.csv"));
-//		BufferedReader csvReader = new BufferedReader(new FileReader("C:\\Users\\Tonya\\Downloads\\debs40houses16h\\house-0.csv"));
-		String row;
-		long start = System.currentTimeMillis();    
-		while ((row = csvReader.readLine()) != null) {
-//		    String[] data = row.split(",");
-		    MqttMessage message = new MqttMessage();
-	    	message.setPayload(row.getBytes());
-	    	message.setQos(qos);
-	    	client.publish("iot_data", message);
-	    	if ((System.currentTimeMillis() - start) >= 1000) {
-	    		break;
-	    	}
-		}
-		long elapsedTime = System.currentTimeMillis() - start;
-		System.out.print("Total time: " + elapsedTime);
-		csvReader.close();
+	static Multithreading[] Multithreading=null;
 
-    	client.disconnect();
+    public static void main(String[] args) throws MqttPersistenceException, MqttException, InterruptedException {
+        final CountDownLatch latch = new CountDownLatch(50);
+        Multithreading = new Multithreading[500];
+        for(int i=0;i<40;i++)
+        {
+        	Multithreading[i] = new Multithreading(latch);
+        	Multithreading[i].setName(String.valueOf(i));
+        	Multithreading[i].start();
+        }
+        latch.await();
+        System.out.println("****************************************************************************************");
+
+        for(int i=0;i<40;i++)
+        {
+        	Multithreading[i].getClient().disconnect();
+        	Multithreading[i].getClient().close();
+        }
+        System.out.println("*****************completed*******************");
     }
 }
