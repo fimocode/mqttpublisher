@@ -19,18 +19,23 @@ public class Multithreading extends Thread {
     private MqttClient client;
     public static final String BROKER_URL = "tcp://localhost:1883";
     CountDownLatch latch;
-    static int qos=1;
+    static int qos = 1;
+    static String path = "";
 
     public Multithreading (CountDownLatch latch) {
         super();
         this.latch = latch;
+    }
+    
+    public Multithreading (String s) {
+        Multithreading.path = s;
     }
 
     public void multithreading() {
         String clientid = Thread.currentThread().getName();
         //We have to generate a unique Client id.
 
-        System.out.println("=========== "+clientid);
+        System.out.println("Thread "+clientid);
         MqttConnectOptions options = null;
         try {
             client = new MqttClient(BROKER_URL, clientid);
@@ -56,7 +61,6 @@ public class Multithreading extends Thread {
     public void run() {
         // TODO Auto-generated method stub
     	multithreading();
-        System.out.println(Thread.currentThread().getName());
         try {
         	sendMessage(Thread.currentThread().getName());
         	latch.countDown();
@@ -73,7 +77,7 @@ public class Multithreading extends Thread {
     }
     public void sendMessage(String s) throws MqttPersistenceException, MqttException, IOException {
         final MqttTopic test = client.getTopic(set_topic+s);
-        BufferedReader csvReader = new BufferedReader(new FileReader("C:\\Users\\Tonya\\Downloads\\debs40houses16h\\"+ test +".csv"));
+        BufferedReader csvReader = new BufferedReader(new FileReader(path + "\\" + test +".csv"));
 		String row;
 		long start = System.currentTimeMillis();    
 		while ((row = csvReader.readLine()) != null) {
@@ -82,12 +86,12 @@ public class Multithreading extends Thread {
 	    	message.setPayload(row.getBytes());
 	    	message.setQos(qos);
 	    	test.publish(message);
-	    	if ((System.currentTimeMillis() - start) > 1000) {
-	    		break;
-	    	}
+//	    	if ((System.currentTimeMillis() - start) > 1000) {
+//	    		break;
+//	    	}
 		}
 		long elapsedTime = System.currentTimeMillis() - start;
-		System.out.print(test + "Total time:" + "\t" + elapsedTime + "\n");
+		System.out.print("Total time:" + "\t" + elapsedTime + "\t" + test + "\n");
 		csvReader.close();
     }
 
