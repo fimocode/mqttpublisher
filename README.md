@@ -12,6 +12,7 @@ sudo apt-get install openjdk-8-jre
 ```bash
 sudo apt install maven
 ```
+ or
 ```bash
 sudo apt-get install maven
 ```
