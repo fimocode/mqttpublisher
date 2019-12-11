@@ -2,7 +2,7 @@ package application.Mqtt_Application;
 
 import java.util.concurrent.CountDownLatch;
 
-import javax.swing.JFileChooser;
+// import javax.swing.JFileChooser;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
@@ -13,11 +13,11 @@ public class App
 
     public static void main(String[] args) throws MqttPersistenceException, MqttException, InterruptedException {
 
-        JFileChooser f = new JFileChooser();
-        f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
-        f.showSaveDialog(null);
+        // JFileChooser f = new JFileChooser();
+        // f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
+        // f.showSaveDialog(null);
 
-        new Multithreading(String.valueOf(f.getSelectedFile()));
+        // new Multithreading(String.valueOf(f.getSelectedFile()));
 
         final CountDownLatch latch = new CountDownLatch(50);
         Multithreading = new Multithreading[500];

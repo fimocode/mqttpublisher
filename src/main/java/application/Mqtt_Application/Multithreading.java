@@ -20,16 +20,16 @@ public class Multithreading extends Thread {
     public static final String BROKER_URL = "tcp://localhost:1883";
     CountDownLatch latch;
     static int qos = 1;
-    static String path = "";
+    static String path = "/home/tony/Downloads/debs40houses16h";
 
     public Multithreading (CountDownLatch latch) {
         super();
         this.latch = latch;
     }
     
-    public Multithreading (String s) {
-        Multithreading.path = s;
-    }
+    // public Multithreading (String s) {
+    //     Multithreading.path = s;
+    // }
 
     public void multithreading() {
         String clientid = Thread.currentThread().getName();
