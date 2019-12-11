@@ -20,7 +20,7 @@ public class Multithreading extends Thread {
     public static final String BROKER_URL = "tcp://10.10.1.146:1883";
     CountDownLatch latch;
     static int qos = 1;
-    static String path = "/root/mqtt_data";
+    static String path = "/root/mqtt_data"; // Change your path
 
     public Multithreading (CountDownLatch latch) {
         super();
@@ -81,11 +81,11 @@ public class Multithreading extends Thread {
         String row;
         long start = System.currentTimeMillis();
         while ((row = csvReader.readLine()) != null) {
-            // String[] data = row.split(",");
             MqttMessage message = new MqttMessage();
             message.setPayload(row.getBytes());
             message.setQos(qos);
             test.publish(message);
+            // *** Set time in 1 seconds *** //
             // if ((System.currentTimeMillis() - start) > 1000) {
             //     break;
             // }

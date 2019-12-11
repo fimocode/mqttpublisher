@@ -28,3 +28,4 @@ java -jar target/mqttpublisher-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 ```bash
 mosquitto_sub -t "topic_name" -u mosquitto_username -P mosquitto_passwd -v
 ```
+Change topic_name, mosquitto_username, mosquitto_passwd with suitable value
