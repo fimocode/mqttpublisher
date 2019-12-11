@@ -3,6 +3,18 @@ Read a csv file to publish to MQTT broker
 
 ## Require
 * mosquitto: https://mosquitto.org/
+* Java JDK/JRE (8th or lastest)
+```bash
+sudo apt-get install openjdk-8-jdk
+sudo apt-get install openjdk-8-jre
+```
+* Maven
+```bash
+sudo apt install maven
+```
+```bash
+sudo apt-get install maven
+```
 ## Run project
 * Using Eclipse
 * Command Linux:
