@@ -26,5 +26,5 @@ java -jar target/mqttpublisher-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 ```
 ## Open mosquitto and run command:
 ```bash
-mosquitto_sub -t "topic_name" -v
+mosquitto_sub -t "topic_name" -u mosquitto_username -P mosquitto_passwd -v
 ```
