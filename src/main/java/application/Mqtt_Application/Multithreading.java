@@ -17,10 +17,10 @@ public class Multithreading extends Thread {
 
     public static final String set_topic = "house-";
     private MqttClient client;
-    public static final String BROKER_URL = "tcp://localhost:1883";
+    public static final String BROKER_URL = "tcp://10.10.1.146:1883";
     CountDownLatch latch;
     static int qos = 1;
-    static String path = "/home/tony/Downloads/debs40houses16h";
+    static String path = "/root/mqtt_data";
 
     public Multithreading (CountDownLatch latch) {
         super();
