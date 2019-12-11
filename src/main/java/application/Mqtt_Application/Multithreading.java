@@ -60,10 +60,10 @@ public class Multithreading extends Thread {
     @Override
     public void run() {
         // TODO Auto-generated method stub
-    	multithreading();
+        multithreading();
         try {
-        	sendMessage(Thread.currentThread().getName());
-        	latch.countDown();
+            sendMessage(Thread.currentThread().getName());
+            latch.countDown();
         } catch (MqttPersistenceException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -71,28 +71,28 @@ public class Multithreading extends Thread {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     public void sendMessage(String s) throws MqttPersistenceException, MqttException, IOException {
         final MqttTopic test = client.getTopic(set_topic+s);
-        BufferedReader csvReader = new BufferedReader(new FileReader(path + "\\" + test +".csv"));
-		String row;
-		long start = System.currentTimeMillis();    
-		while ((row = csvReader.readLine()) != null) {
-//		    String[] data = row.split(",");
-		    MqttMessage message = new MqttMessage();
-	    	message.setPayload(row.getBytes());
-	    	message.setQos(qos);
-	    	test.publish(message);
-//	    	if ((System.currentTimeMillis() - start) > 1000) {
-//	    		break;
-//	    	}
-		}
-		long elapsedTime = System.currentTimeMillis() - start;
-		System.out.print("Total time:" + "\t" + elapsedTime + "\t" + test + "\n");
-		csvReader.close();
+        BufferedReader csvReader = new BufferedReader(new FileReader(path + "/" + test +".csv"));
+        String row;
+        long start = System.currentTimeMillis();
+        while ((row = csvReader.readLine()) != null) {
+            // String[] data = row.split(",");
+            MqttMessage message = new MqttMessage();
+            message.setPayload(row.getBytes());
+            message.setQos(qos);
+            test.publish(message);
+            // if ((System.currentTimeMillis() - start) > 1000) {
+            //     break;
+            // }
+        }
+        long elapsedTime = System.currentTimeMillis() - start;
+        System.out.print("Total time:" + "\t" + elapsedTime + "\t" + test + "\n");
+        csvReader.close();
     }
 
     public MqttClient getClient() {
