@@ -41,7 +41,7 @@ public class Multithreading extends Thread {
             client = new MqttClient(BROKER_URL, clientid);
             options = new MqttConnectOptions();
             options.setCleanSession(true);
-            options.setMaxInflight(50);
+            options.setMaxInflight(10000);
             client.connect(options);
         } catch (MqttException e) {
             try {
