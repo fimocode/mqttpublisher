@@ -3,6 +3,7 @@ package application.Mqtt_Application;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -26,13 +27,13 @@ public class Multithreading extends Thread {
         super();
         this.latch = latch;
     }
-    
+
     // public Multithreading (String s) {
     //     Multithreading.path = s;
     // }
 
     public void multithreading() {
-        String clientid = Thread.currentThread().getName();
+        String clientid = UUID.randomUUID().toString();
         //We have to generate a unique Client id.
 
         System.out.println("Thread "+clientid);
@@ -75,20 +76,27 @@ public class Multithreading extends Thread {
             e.printStackTrace();
         }
     }
+
     public void sendMessage(String s) throws MqttPersistenceException, MqttException, IOException {
         final MqttTopic test = client.getTopic(set_topic+s);
         BufferedReader csvReader = new BufferedReader(new FileReader(path + "/" + test +".csv"));
         String row;
+        int count = 0;
         long start = System.currentTimeMillis();
+        long lastTime = start;
         while ((row = csvReader.readLine()) != null) {
             MqttMessage message = new MqttMessage();
             message.setPayload(row.getBytes());
             message.setQos(qos);
             test.publish(message);
-            // *** Set time in 1 seconds *** //
-            // if ((System.currentTimeMillis() - start) > 1000) {
-            //     break;
-            // }
+            count++;
+
+            // *** Set time in 5 minutes *** //
+            if ((System.currentTimeMillis() - lastTime) > 300000) {
+                lastTime = System.currentTimeMillis();
+                System.out.print("Total message in 5 minutes:" + count + "\t" + test +"\n");
+                count = 0;
+            }
         }
         long elapsedTime = System.currentTimeMillis() - start;
         System.out.print("Total time:" + "\t" + elapsedTime + "\t" + test + "\n");

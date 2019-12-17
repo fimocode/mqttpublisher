@@ -11,15 +11,15 @@ public class App
 {
     static Multithreading[] Multithreading=null;
 
-    public static void main(String[] args) throws MqttPersistenceException, MqttException, InterruptedException {
-
+    public static void main(String[] args) throws MqttPersistenceException, MqttException, InterruptedException
+    {
         // JFileChooser f = new JFileChooser();
-        // f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
+        // f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         // f.showSaveDialog(null);
 
         // new Multithreading(String.valueOf(f.getSelectedFile()));
 
-        final CountDownLatch latch = new CountDownLatch(50);
+        final CountDownLatch latch = new CountDownLatch(40);
         Multithreading = new Multithreading[500];
         for(int i=0;i<40;i++)
         {
