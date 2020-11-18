@@ -18,7 +18,7 @@ public class Multithreading extends Thread {
 
     public static final String set_topic = "house-";
     private MqttClient client;
-    public static final String BROKER_URL = "tcp://localhost:1883";
+    public static final String BROKER_URL = "tcp://172.31.24.176:1883";
     CountDownLatch latch;
     static int qos = 1;
     static String path = "/home/ubuntu/mqtt_data"; // Change your path
